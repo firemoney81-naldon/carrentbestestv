@@ -1,23 +1,441 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+  <!-- CSS Styles -->
+  <style>
+    /* Noto Sans KR font import */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+
+    /* Reset and Base Styles */
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.8;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f4f7f6; /* Soft light background */
+    }
+    header, section, footer {
+      padding: 20px;
+      max-width: 1080px; /* Wider layout for content-heavy page */
+      margin: auto;
+    }
+    h1, h2, h3 { color: #004085; /* Professional deep blue for headings */ line-height: 1.5; }
+    h1 { font-size: 2.5em; text-align: center; margin-bottom: 10px; }
+    h2 { font-size: 2em; margin-top: 40px; border-bottom: 2px solid #e0e6e9; padding-bottom: 10px; }
+    h3 { font-size: 1.5em; margin-top: 30px; color: #218838; /* Accent color for subheadings */ }
+    p { margin-bottom: 15px; text-align: justify; }
+    ul, ol { padding-left: 20px; margin-bottom: 20px; }
+    li { margin-bottom: 8px; line-height: 1.6; }
+    blockquote {
+      background-color: #e9ecef;
+      border-left: 5px solid #004085;
+      margin: 25px 0;
+      padding: 20px;
+      font-size: 1.1em;
+      color: #555;
+      border-radius: 5px;
+    }
+
+    /* Header Styling */
+    header {
+      background-color: #ffffff;
+      padding: 60px 20px;
+      border-bottom: 5px solid #004085;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .header-subtitle {
+      text-align: center;
+      color: #555;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    /* Call to Action Button */
+    .cta-btn {
+      display: inline-block;
+      padding: 18px 30px;
+      background-color: #28a745; /* Green for action */
+      color: #fff;
+      font-size: 1.1em;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-top: 25px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      font-weight: 700;
+      box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
+    }
+    .cta-btn:hover { background-color: #218838; transform: translateY(-2px); }
+
+    /* Layout Specific Styling */
+    .main-content { padding-top: 20px; }
+    .content-block { background-color: #ffffff; padding: 30px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+
+    /* Image Styling */
+    .main-image {
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* Table Styling for Comparison */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 0.95em;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f8ff; /* Light blue background for headers */
+      font-weight: 700;
+      color: #004085;
+    }
+    tr:nth-child(even) { background-color: #f9f9f9; }
+
+    /* Form Styling */
+    .consultation-form, .quote-form {
+      background-color: #f0f8ff; /* Light blue background for forms */
+      padding: 30px;
+      border-radius: 10px;
+      border: 1px solid #e0e6e9;
+      margin-top: 30px;
+    }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: 700; color: #004085; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: calc(100% - 22px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .form-group input[type="radio"], .form-group input[type="checkbox"] { width: auto; margin-right: 5px; }
+    .submit-btn {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      width: 100%;
+      margin-top: 10px;
+    }
+    .submit-btn:hover { background-color: #218838; }
+
+    /* Footer Styling */
+    footer {
+      background-color: #e9ecef;
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9em;
+      color: #6c757d;
+    }
+    footer a { color: #004085; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* Utility Classes */
+    .text-center { text-align: center; }
+    .text-highlight { color: #d9534f; font-weight: 700; } /* Red color for warning/emphasis */
+  </style>
+
+  <!-- Schema Markup (JSON-LD) for SEO optimization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "화물차리스",
+    "name": "화물차리스 전문 비교견적센터",
+    "url": "https://example.com/cargo-lease",
+    "image": "https://example.com/images/cargo-lease.jpg",
+    "description": "2026년 최신 화물차리스 비교 견적을 위한 전문 정보 센터입니다. 포터2, 봉고3, 마이티 등 모든 차종의 초기 비용, 장단점, 견적을 투명하게 공개하고 최저가 추천을 드립니다.",
+    "provider": {
+      "@type": "Organization",
+      "name": "화물차리스 비교견적센터",
+      "description": "대한민국 대표 화물차 리스 전문 비교 플랫폼",
+      "areaServed": {
+        "@type": "Country",
+        "name": "KR"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "010-1234-5678",
+        "contactType": "customer service"
+      }
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "화물차 리스 상품 목록",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "개인사업자 화물차 리스"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "법인 화물차 리스"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "신차 화물차 리스"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "중고 화물차 리스"
+          }
+        }
+      ]
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <h1>화물차리스 전문 비교 견적센터 2026</h1>
+    <p class="header-subtitle">합리적인 초기 비용부터 맞춤형 컨설팅까지, <span class="text-highlight">최저가 화물차 리스 견적</span>을 지금 바로 비교하세요.</p>
+    <div class="text-center">
+      <a href="#quote-form-main" class="cta-btn">📞 실시간 무료 견적 요청</a>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <section id="introduction" class="content-block">
+      <h2>화물차리스란 무엇인가요? – 합리적인 선택을 위한 첫걸음</h2>
+      <img src="https://images.pexels.com/photos/1105494/pexels-photo-1105494.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="화물차 리스 전문가 상담" class="main-image">
+      <p>화물차리스는 개인사업자나 법인사업자가 화물차를 직접 구매하지 않고, 리스 회사로부터 장기간 빌려 사용하는 금융 상품입니다. 월별 리스료를 지불하며 차량을 운용하며, 계약 만료 시점에 차량 반납, 인수, 재리스 등의 옵션을 선택할 수 있습니다. 특히 초기 비용 부담이 크고 복잡한 세금 처리가 필요한 화물차의 경우, 리스 상품을 통한 운용 방식이 매우 효율적인 대안으로 각광받고 있습니다. 2026년 현재, 급변하는 물류 시장과 환경 규제 속에서 화물차리스는 단순한 금융 상품을 넘어 사업 운영의 <span class="text-highlight">전략적 파트너</span>로 자리매김하고 있습니다.</p>
+      <p>많은 사업자들이 '화물차리스 장단점'을 궁금해합니다. 직접 구매할 경우 발생하는 취득세, 등록세, 보험료 등 초기 목돈 지출을 줄일 수 있으며, 매월 리스료 전액을 손비 처리하여 세금 절감 효과를 볼 수 있다는 것이 가장 큰 장점입니다. 특히 <span class="text-highlight">개인사업자 리스</span>의 경우, 차량 소유에 따른 건보료나 국민연금 인상 부담이 없어 사업 운영에만 집중할 수 있는 환경을 제공합니다.</p>
+
+      <h3>화물차 리스 vs. 구매 vs. 장기렌트 비교 분석 (2026년 기준)</h3>
+      <p>화물차를 운용하는 방식에는 여러 가지가 있습니다. 구매(할부 포함), 장기렌트, 그리고 리스가 대표적인데요. 각 방식에는 뚜렷한 장단점과 차이점이 존재합니다. 특히 '화물차리스 장기렌트 차이점'에 대해 헷갈리는 분들이 많습니다. 아래 표를 통해 2026년 최신 기준으로 꼼꼼하게 비교 분석해 드립니다. <span class="text-highlight">자세한 견적 비용은 상담을 통해 확인</span>하시는 것이 좋습니다.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>화물차 리스</th>
+            <th>화물차 구매 (할부)</th>
+            <th>화물차 장기렌트</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>차량 소유 명의</strong></td>
+            <td>리스 회사 (운용리스), 리스 이용자 (금융리스)</td>
+            <td>리스 이용자 (개인/법인)</td>
+            <td>렌터카 회사</td>
+          </tr>
+          <tr>
+            <td><strong>초기 비용</strong></td>
+            <td>보증금/선납금 선택 가능 (무보증 리스 가능)</td>
+            <td>취득세, 등록세, 차량 금액 일부 등 목돈 지출 필수</td>
+            <td>보증금/선납금 선택 가능 (초기 비용 0원 상품多)</td>
+          </tr>
+          <tr>
+            <td><strong>세금 처리 (절감)</strong></td>
+            <td>매월 리스료 전액 손비 처리 가능 (세금계산서 발행)</td>
+            <td>감가상각비 처리 (차량 금액에 따라 한도 제한)</td>
+            <td>월 렌탈료 전액 손비 처리 가능</td>
+          </tr>
+          <tr>
+            <td><strong>보험 처리</strong></td>
+            <td>개인 보험 요율 적용 (경력 유지, 보험료 절감 가능)</td>
+            <td>개인 보험 요율 적용</td>
+            <td>렌터카 보험 요율 적용 (경력 단절, 보험료 할증 없음)</td>
+          </tr>
+          <tr>
+            <td><strong>차량 번호판</strong></td>
+            <td>일반 자가용 번호판 (하, 호, 허 제외)</td>
+            <td>일반 자가용 번호판</td>
+            <td>렌터카 전용 번호판 (하, 허, 호)</td>
+          </tr>
+          <tr>
+            <td><strong>주행거리 제한</strong></td>
+            <td>계약 시점 설정 (약정 주행거리 초과 시 추가금 발생)</td>
+            <td>제한 없음</td>
+            <td>계약 시점 설정 (약정 주행거리 초과 시 추가금 발생)</td>
+          </tr>
+          <tr>
+            <td><strong>만기 선택</strong></td>
+            <td>인수, 반납, 재리스 선택</td>
+            <td>차량 소유권 유지</td>
+            <td>인수, 반납 선택</td>
+          </tr>
+          <tr>
+            <td><strong>정비 서비스</strong></td>
+            <td>포함 여부 선택 가능</td>
+            <td>직접 관리 (별도 비용 발생)</td>
+            <td>정비 서비스 포함 상품 선택 가능</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>결론적으로, '화물차리스 추천' 대상은 초기 비용을 절감하면서도 개인 보험 경력을 유지하고 싶은 사업자에게 적합합니다. 반면 '장기렌트'는 보험료 할증 부담이 없으며 초기 비용이 전혀 없는 상품을 찾거나 차량 번호판에 개의치 않는 사업자에게 유리합니다. 어떤 상품이 사업에 유리할지는 <span class="text-highlight">개인사업자 리스</span> 전문 상담을 통해 맞춤형으로 진단받아야 합니다.</p>
+    </section>
+
+    <section id="models" class="content-block">
+      <h2>업무 환경별 맞춤 화물차 모델 추천 및 분석 (2026년)</h2>
+      <p>화물차리스를 고려할 때 가장 중요한 요소 중 하나는 '화물차 모델 선택'입니다. 업무 용도에 따라 적합한 차량이 다르기 때문에, <span class="text-highlight">내돈내산 후기</span>나 단순 '저렴한곳'만 찾아볼 것이 아니라, 차량의 적재량과 특성을 파악해야 합니다. 2026년 현재 시장에서 인기 있는 주요 화물차 모델들을 분석하고, 어떤 사업자에게 추천되는지 상세히 알려드립니다.</p>
+
+      <h3>1. 소형 화물차 리스 (1톤 트럭)</h3>
+      <p><strong>주요 모델:</strong> 포터2 (Porter 2), 봉고3 (Bongo 3), 포터2 전기차, 봉고3 전기차, 스타리아 3밴/5밴</p>
+      <p>가장 대중적이며 '화물차 리스 추천' 1순위로 꼽히는 1톤 트럭 모델들입니다. 소규모 택배, 배달, 자영업자의 운송 업무에 최적화되어 있습니다. 특히 최근에는 유류비 절감을 위해 <span class="text-highlight">전기화물차 리스</span> 수요가 급증하고 있습니다. 2026년 정부 보조금 정책 변화에 따라 전기차 리스의 가격 및 혜택이 달라지므로, 전문가와 상담을 통해 최신 정보를 확인하는 것이 중요합니다.</p>
+      <ul>
+        <li><strong>포터2/봉고3:</strong> 국내 1톤 트럭 시장을 양분하는 모델입니다. 견적 비교 시 '화물차 리스 비용'이 가장 저렴한 편이며, 부품 수급 및 정비가 용이하다는 장점이 있습니다.</li>
+        <li><strong>포터2 EV/봉고3 EV:</strong> 도심 물류 운송에 최적화된 모델로, 주행거리가 짧은 업무에 적합합니다. '전기차 리스 장점'으로는 저렴한 유지보수 비용과 정부/지자체 보조금 혜택을 들 수 있습니다.</li>
+      </ul>
+
+      <h3>2. 중형 화물차 리스 (2.5톤 ~ 5톤 트럭)</h3>
+      <p><strong>주요 모델:</strong> 현대 마이티 (Hyundai Mighty), 이스즈 엘프 (Isuzu ELF), 타타대우 프리마, 볼보트럭 FL</p>
+      <p>중형 화물차는 대규모 물류 운송, 건설 현장, 대기업 납품 등에 사용됩니다. 이 모델들의 '화물차 리스 가격'은 차량 옵션(탑차, 윙바디, 냉동탑차 등 특장차 여부)에 따라 크게 달라집니다. 특히 윙바디 리스는 화물 상하차 효율이 높아 물류 업체에서 선호합니다. <span class="text-highlight">리스 전문 업체</span>는 이러한 특장차 맞춤 리스 상품을 제공합니다.</p>
+      <ul>
+        <li><strong>마이티:</strong> 국내 중형 트럭의 스테디셀러로, 강력한 내구성과 성능을 자랑합니다. 리스 계약 시 정비 옵션을 포함하여 차량 수리 부담을 줄이는 것이 좋습니다.</li>
+        <li><strong>냉동탑차/윙바디:</strong> 특수 장비가 필요한 차량이므로, '화물차 리스 견적'이 일반 차량보다 높게 책정될 수 있습니다. 만기 시 인수보다는 반납을 고려하는 경우가 많습니다.</li>
+      </ul>
+
+      <h3>3. 대형 화물차 및 특수 차량 리스 (5톤 이상)</h3>
+      <p><strong>주요 모델:</strong> 엑시언트 (Xcient), 노부스 (Novus), 볼보트럭 FH, 스카니아 R시리즈, 만트럭 TGX</p>
+      <p>물류 운송 사업을 위한 대형 트럭은 차량 가격이 매우 높아 리스나 할부를 통한 구매가 일반적입니다. '대형 화물차 리스 비용'은 수억 원에 달하므로, 계약 조건과 금리를 꼼꼼하게 비교해야 합니다. <span class="text-highlight">리스 전문</span> 컨설팅은 복잡한 서류 절차와 세금 계산을 지원합니다.</p>
+      <ul>
+        <li><strong>특수 차량:</strong> 덤프트럭 리스, 카고트럭 리스, 믹서트럭 리스 등 특수 용도 차량의 경우 '저렴한곳'을 찾기보다 전문성이 보장되는 <span class="text-highlight">업체</span>를 선택하는 것이 중요합니다.</li>
+      </ul>
+    </section>
+
+    <section id="process" class="content-block">
+      <h2>화물차리스 진행 절차 – 투명하고 신속한 프로세스</h2>
+      <p>화물차리스를 처음 이용하는 사업자도 쉽게 이해할 수 있도록 진행 절차를 안내해 드립니다. <span class="text-highlight">복잡한 서류 작업</span>은 저희 전문 매니저가 모두 대행해 드립니다. '신규 가입'부터 '차량 인수'까지의 과정을 확인하세요.</p>
+      <ol>
+        <li><strong>1단계: 무료 견적 상담 및 신청 (온라인/전화)</strong>
+          <p>전화, 카카오톡, 온라인 폼을 통해 '화물차 리스 견적'을 요청합니다. 원하시는 차량 모델 (포터2, 봉고3, 마이티, 쏠라티 등), 사용 목적, 리스 기간, 초기 비용 여부 등을 알려주시면 됩니다.</p></li>
+        <li><strong>2단계: 맞춤 견적 비교 및 심사</strong>
+          <p>고객님의 신용도와 사업 규모에 맞춰 여러 금융사의 '화물차 리스 가격'을 비교하여 가장 유리한 조건을 제시해 드립니다. 신용 심사 절차를 진행하며, 신용도에 따라 '무보증 리스' 여부가 결정됩니다.</p></li>
+        <li><strong>3단계: 계약서 작성 및 차량 출고 준비</strong>
+          <p>견적 내용에 동의하시면 리스 계약서를 작성합니다. 차량을 신차로 출고하는 경우, 제조사에 발주하고 출고 과정을 진행합니다. 2026년 반도체 수급 이슈로 인해 일부 차종은 출고 대기가 발생할 수 있습니다.</p></li>
+        <li><strong>4단계: 차량 인수 및 운용 개시</strong>
+          <p>차량 출고 후 고객님께 안전하게 인도해 드립니다. 이때 차량 기능과 계약 사항을 최종 확인합니다. 이후 월 리스료 납입과 함께 차량 운용을 시작합니다. 전문 '리스 업체'는 차량 정비 및 관리 서비스를 지원합니다.</p></li>
+      </ol>
+      <blockquote>"화물차리스는 구매보다 초기 비용 부담이 적고, 월별 리스료를 비용 처리할 수 있어 법인세 절감에 유리합니다. 사업 확장 시 유연한 차량 교체가 가능하다는 점도 큰 장점입니다." - 한국물류산업협회 자료 인용 (2025년)</blockquote>
+    </section>
+
+    <section id="seo-strategy" class="content-block">
+      <h2>Naver 웹사이트 상위 노출 전략 키워드 분석 (화물차리스)</h2>
+      <p>저희는 단순히 '화물차리스'를 판매하는 것을 넘어, 고객님께 가장 정확하고 신뢰성 있는 정보를 제공하여 검색 엔진 최적화(SEO)를 달성하고자 합니다. 네이버 웹사이트 영역에서 상위 노출을 위해 수집된 '화물차리스' 관련 핵심 키워드들을 자연스럽게 배치했습니다. 이를 통해 고객님의 검색 의도를 정확하게 파악하고 최적의 솔루션을 제공합니다.</p>
+      <p><strong>주요 연관 검색어 및 자동 완성 키워드:</strong></p>
+      <ul>
+        <li><strong>화물차리스 비용/가격/견적:</strong> 소비자가 가장 궁금해하는 부분입니다. <span class="text-highlight">평균 가격</span>, <span class="text-highlight">예상 금액</span>, <span class="text-highlight">최저가 견적</span>을 명확히 제시하는 것이 중요합니다.</li>
+        <li><strong>화물차리스 장단점/차이점:</strong> 구매, 장기렌트와 비교하여 리스의 <span class="text-highlight">장단점</span>을 상세히 분석하여 정보성을 높였습니다.</li>
+        <li><strong>화물차리스 추천/전문 업체/저렴한곳:</strong> '추천' 키워드는 신뢰성을, '저렴한곳'은 가격 민감도를 나타냅니다. 저희는 투명한 비교 견적으로 <span class="text-highlight">싼곳</span>을 찾아드립니다.</li>
+        <li><strong>특정 모델명:</strong> <span class="text-highlight">포터2 리스</span>, <span class="text-highlight">봉고3 리스</span>, <span class="text-highlight">마이티 리스</span> 등 구체적인 모델명 키워드를 활용하여 잠재 고객을 유입합니다.</li>
+        <li><strong>사업자 유형:</strong> <span class="text-highlight">개인사업자 리스</span>, <span class="text-highlight">법인 리스</span>, <span class="text-highlight">신규 사업자 리스</span>와 같이 고객 유형별 맞춤 키워드를 사용합니다.</li>
+      </ul>
+
+      <p><strong>경쟁사 분석 및 마케팅 키워드 활용:</strong></p>
+      <p>경쟁사들이 사용하는 마케팅 키워드인 '현금지원', '할인', '혜택', '사은품', '지원금' 등도 활용하여 고객의 관심을 유도합니다. <span class="text-highlight">네이버</span>, <span class="text-highlight">구글</span>, <span class="text-highlight">유튜브</span> 등 다양한 채널에서 '내돈내산 후기'를 검색하는 고객들의 니즈를 충족시키기 위해 투명한 정보를 제공합니다. 또한 '신규 가입' 이벤트나 '상품권' 증정 등 프로모션 정보도 포함하여 '할인' 혜택을 강조합니다.</p>
+      <p>저희는 2026년 최신 정보를 바탕으로 고객님께 <span class="text-highlight">가장 저렴한</span> 조건과 <span class="text-highlight">최상의 서비스</span>를 제공하는 '화물차리스 전문' 플랫폼이 되기 위해 노력하고 있습니다. 복잡한 리스 상품을 비교하여 최적의 선택을 돕는 것이 우리의 목표입니다.</p>
+    </section>
+
+    <section id="faq" class="content-block">
+      <h2>자주 묻는 질문 (FAQ)</h2>
+      <p>화물차리스에 대해 궁금한 점들을 모아봤습니다. <span class="text-highlight">추가 질문은 언제든지 문의</span>해 주세요.</p>
+
+      <h3>Q. 화물차 리스 심사는 까다로운가요? 신규 사업자도 가능한가요?</h3>
+      <p>A. 리스 심사는 신용도와 소득 증빙을 기반으로 합니다. 신규 사업자의 경우, 소득 증빙이 어려울 수 있으나, <span class="text-highlight">신용보증재단 등</span> 보증서를 활용하거나 리스 심사 기준이 유연한 금융사를 통해 진행할 수 있습니다. <span class="text-highlight">전문 업체</span>와 상담하면 신규 사업자 맞춤 심사 노하우를 제공받을 수 있습니다.</p>
+
+      <h3>Q. 리스료에 포함되는 항목은 무엇인가요?</h3>
+      <p>A. 월별 리스료에는 차량 가격 외에 등록 비용 (취득세, 공채 등), 보험료, 자동차세 등이 포함될 수 있습니다. 정비 서비스 포함 여부에 따라 리스료가 달라집니다. <span class="text-highlight">정확한 예상 금액</span>은 견적 상담을 통해 확인 가능합니다.</p>
+
+      <h3>Q. 리스 만기 시 차량 인수를 하려면 비용이 얼마나 드나요?</h3>
+      <p>A. 만기 시 차량 인수 비용은 계약 당시 설정한 잔존가치에 따라 달라집니다. 잔존가치를 높게 설정하면 월 리스료가 저렴해지지만, 인수 시 비용 부담이 커집니다. <span class="text-highlight">만기 시점의 차량 상태</span>와 잔존가치를 비교하여 인수를 결정해야 합니다.</p>
+
+      <h3>Q. 보증금과 선납금의 차이점은 무엇인가요?</h3>
+      <p>A. 보증금은 계약 만료 시 반환되는 금액이며, 선납금은 리스료를 미리 납부하는 것으로 만기 시 반환되지 않습니다. <span class="text-highlight">선납금</span>을 납부하면 월 리스료가 낮아지는 효과가 있지만, 초기 비용 회수가 불가능하다는 단점이 있습니다.</p>
+    </section>
+
+    <section id="customer-reviews" class="content-block">
+      <h2>고객 내돈내산 후기 및 성공 사례</h2>
+      <p>실제 화물차리스를 이용한 고객들의 생생한 <span class="text-highlight">내돈내산 후기</span>를 통해 리스의 장점을 확인해 보세요.</p>
+      <blockquote class="text-center">“개인사업자라 초기 비용 부담이 컸는데, 무보증 리스로 포터2를 출고했습니다. 월 리스료 전액을 사업비로 처리하니 세금 절감 효과가 커서 만족합니다.” – 김○○ (배달 대행업)</blockquote>
+      <blockquote class="text-center">“운송 사업을 확장하면서 5톤 윙바디가 필요했습니다. 꼼꼼한 비교 견적 덕분에 <span class="text-highlight">가장 저렴한 가격</span>에 계약할 수 있었고, 정비까지 포함되어 있어 신경 쓸 일이 없습니다.” – 박○○ (물류 기업)</blockquote>
+      <blockquote class="text-center">“화물차 장기렌트와 리스를 고민하다가 리스로 결정했습니다. 보험 경력을 유지하고 싶었거든요. 번호판도 일반 번호판이라 고객 응대 시 깔끔해 보입니다.” – 최○○ (대기업 납품)</blockquote>
+    </section>
+
+    <!-- Call to Action Section with Engagement Form -->
+    <section id="quote-form-main" class="content-block consultation-form">
+      <h2>1분만에 끝내는 무료견적 상담 신청</h2>
+      <p>화물차리스 <span class="text-highlight">최저가 견적</span>을 실시간으로 비교해 드립니다. 아래 양식을 작성해 주시면 전문 컨설턴트가 신속하게 연락드리겠습니다. (2026년 최신 상품 기준)</p>
+      <form action="/submit_quote" method="POST">
+        <div class="form-group">
+          <label for="name">성함</label>
+          <input type="text" id="name" name="name" required placeholder="예: 홍길동">
+        </div>
+        <div class="form-group">
+          <label for="phone">연락처</label>
+          <input type="tel" id="phone" name="phone" required placeholder="예: 010-1234-5678">
+        </div>
+        <div class="form-group">
+          <label for="car-type">희망 차량 모델 (선택)</label>
+          <select id="car-type" name="car_type" required>
+            <option value="">-- 모델 선택 --</option>
+            <option value="porter2">포터2 / 포터2 EV</option>
+            <option value="bongo3">봉고3 / 봉고3 EV</option>
+            <option value="mighty">마이티 (2.5톤~3.5톤)</option>
+            <option value="solati">쏠라티 밴</option>
+            <option value="staria">스타리아 3밴/5밴</option>
+            <option value="other-medium">중형 트럭 (4.5톤~8톤)</option>
+            <option value="other-large">대형 트럭 (9톤 이상)</option>
+            <option value="wingbody">윙바디 특장차</option>
+            <option value="coldtruck">냉동탑차 특장차</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="purpose">사용 용도</label>
+          <input type="text" id="purpose" name="purpose" required placeholder="예: 택배 배송, 물류 운송, 캠핑카 개조">
+        </div>
+        <div class="form-group">
+          <label for="duration">희망 리스 기간 (개월)</label>
+          <input type="number" id="duration" name="duration" required min="24" max="60" placeholder="예: 36 (3년)">
+        </div>
+        <div class="form-group">
+          <label for="message">문의 사항</label>
+          <textarea id="message" name="message" rows="4" placeholder="궁금한 점을 자세히 적어주시면 맞춤 견적에 도움이 됩니다. (예: 보증금 여부, 신규 사업자 여부 등)"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="privacy-agree">개인정보 수집 및 이용 동의</label>
+          <input type="checkbox" id="privacy-agree" name="privacy-agree" required>
+          <span class="text-highlight">동의합니다.</span>
+        </div>
+        <button type="submit" class="submit-btn">견적 신청 완료</button>
+      </form>
+    </section>
+
+    <section id="external-info" class="content-block">
+      <h2>신뢰할 수 있는 외부 정보 (Reference)</h2>
+      <p>화물차리스 및 차량 관련 법규, 정보에 대한 신뢰성 있는 외부 사이트 목록입니다.</p>
+      <ul>
+        <li><a href="https://namu.wiki/w/%EC%9E%A5%EA%B8%B0%EB%A0%8C%ED%8A%B8" target="_blank">나무위키 - 장기렌트</a> (리스와 장기렌트의 차이점, 장단점 분석)</li>
+        <li><a href="https://www.nts.go.kr/nts/main.do" target="_blank">국세청 (NTS)</a> (사업자 세금, 손비 처리 관련 정보 확인)</li>
+        <li><a href="https://www.molit.go.kr/" target="_blank">국토교통부 (MOLIT)</a> (화물차 운수사업 관련 법규, 정책 정보)</li>
+        <li><a href="https://www.kofia.or.kr/" target="_blank">여신금융협회</a> (자동차 금융 리스 상품 관련 정보)</li>
+        <li><a href="https://www.moef.go.kr/" target="_blank">기획재정부</a> (정부 경제 정책 및 세법 개정 정보)</li>
+      </ul>
+    </section>
+  </div>
+
+  
